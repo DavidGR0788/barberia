@@ -85,7 +85,7 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        email = request.form['email']
+        num_documento = request.form['num_documento']
         password = request.form['password']
         
         try:
@@ -96,8 +96,8 @@ def login():
                 SELECT u.id, u.nombre, u.email, u.password, u.telefono, u.rol_id, 
                        u.barberia_id, u.num_documento, u.documento, u.activo
                 FROM usuarios u 
-                WHERE u.email = %s AND u.activo = TRUE
-            """, (email,))
+                WHERE u.num_documento = %s AND u.activo = TRUE
+            """, (num_documento,))
             
             user_data = cursor.fetchone()
             cursor.close()
@@ -120,7 +120,7 @@ def login():
                 flash(f'¡Bienvenido {user.nombre}!', 'success')
                 return redirect(url_for('dashboard'))
             
-            flash('Email o contraseña incorrectos', 'error')
+            flash('Número de documento o contraseña incorrectos', 'error')
             
         except Exception as e:
             flash('Error al iniciar sesión', 'error')

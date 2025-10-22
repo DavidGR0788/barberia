@@ -12,11 +12,22 @@
                 </h4>
             </div>
             <div class="card-body p-4">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
                 <form method="POST" action="{{ url_for('login') }}">
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" 
-                               placeholder="tu@email.com" required>
+                        <label for="num_documento" class="form-label">Número de Documento</label>
+                        <input type="text" class="form-control" id="num_documento" name="num_documento" 
+                               placeholder="Ej: 1007230985" required>
                     </div>
                     
                     <div class="mb-3">
@@ -36,6 +47,13 @@
                             Regístrate aquí
                         </a>
                     </p>
+                </div>
+
+                <!-- Información de prueba -->
+                <div class="mt-4 p-3 bg-light rounded">
+                    <h6 class="text-center mb-2">👑 Usuario Admin de Prueba:</h6>
+                    <p class="text-center mb-1"><strong>Documento:</strong> 1007230985</p>
+                    <p class="text-center mb-0"><strong>Contraseña:</strong> 1234567890</p>
                 </div>
             </div>
         </div>
