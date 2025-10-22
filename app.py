@@ -1,8 +1,8 @@
 from flask import Flask, render_template, jsonify, redirect, url_for, request, flash
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
-from werkzeug.security import check_password_hash, generate_password_hash
 import pymysql
 from config import Config
+import bcrypt
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -77,6 +77,24 @@ class User(UserMixin):
 def load_user(user_id):
     return User.get(user_id)
 
+def hash_password_bcrypt(password):
+    """Hashear contraseña con bcrypt"""
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
+    return hashed.decode('utf-8')
+
+def check_password_bcrypt(hashed_password, password):
+    """Verificar contraseña con bcrypt"""
+    try:
+        if isinstance(hashed_password, str):
+            hashed_password = hashed_password.encode('utf-8')
+        if isinstance(password, str):
+            password = password.encode('utf-8')
+        return bcrypt.checkpw(password, hashed_password)
+    except Exception as e:
+        print(f"❌ Error en check_password_bcrypt: {e}")
+        return False
+
 # Rutas de la aplicación
 @app.route('/')
 def index():
@@ -87,6 +105,8 @@ def login():
     if request.method == 'POST':
         num_documento = request.form['num_documento']
         password = request.form['password']
+        
+        print(f"🔐 [DEBUG] Intento de login - Documento: {num_documento}")
         
         try:
             connection = get_db_connection()
@@ -103,28 +123,43 @@ def login():
             cursor.close()
             connection.close()
             
-            if user_data and check_password_hash(user_data['password'], password):
-                user = User(
-                    id=user_data['id'],
-                    nombre=user_data['nombre'],
-                    email=user_data['email'],
-                    telefono=user_data['telefono'],
-                    rol_id=user_data['rol_id'],
-                    barberia_id=user_data['barberia_id'],
-                    num_documento=user_data['num_documento'],
-                    documento=user_data['documento'],
-                    activo=user_data['activo']
-                )
+            if user_data:
+                print(f"📊 [DEBUG] Usuario encontrado: {user_data['nombre']}")
+                print(f"🔑 [DEBUG] Hash en BD: {user_data['password'][:50]}...")
                 
-                login_user(user)
-                flash(f'¡Bienvenido {user.nombre}!', 'success')
-                return redirect(url_for('dashboard'))
+                # Verificación con bcrypt
+                password_match = check_password_bcrypt(user_data['password'], password)
+                print(f"✅ [DEBUG] Contraseña coincide: {password_match}")
+                
+                if password_match:
+                    user = User(
+                        id=user_data['id'],
+                        nombre=user_data['nombre'],
+                        email=user_data['email'],
+                        telefono=user_data['telefono'],
+                        rol_id=user_data['rol_id'],
+                        barberia_id=user_data['barberia_id'],
+                        num_documento=user_data['num_documento'],
+                        documento=user_data['documento'],
+                        activo=user_data['activo']
+                    )
+                    
+                    login_user(user)
+                    flash(f'¡Bienvenido {user.nombre}!', 'success')
+                    print(f"🎉 [DEBUG] Login exitoso para: {user.nombre}")
+                    return redirect(url_for('dashboard'))
+                else:
+                    print(f"❌ [DEBUG] Contraseña incorrecta")
+            else:
+                print(f"❌ [DEBUG] Usuario no encontrado con documento: {num_documento}")
             
             flash('Número de documento o contraseña incorrectos', 'error')
             
         except Exception as e:
             flash('Error al iniciar sesión', 'error')
-            print(f"Error en login: {e}")
+            print(f"❌ [DEBUG] Error en login: {e}")
+            import traceback
+            traceback.print_exc()
     
     return render_template('auth/login.html')
 
@@ -138,6 +173,8 @@ def register():
         telefono = request.form['telefono']
         documento = request.form['documento']
         num_documento = request.form['num_documento']
+        
+        print(f"📝 [DEBUG] Intento de registro - Documento: {num_documento}")
         
         # Validaciones
         if password != confirm_password:
@@ -165,7 +202,9 @@ def register():
                 return render_template('auth/register.html')
             
             # Crear usuario (rol usuario por defecto = 3)
-            hashed_password = generate_password_hash(password)
+            hashed_password = hash_password_bcrypt(password)
+            print(f"🔑 [DEBUG] Hash generado: {hashed_password[:50]}...")
+            
             cursor.execute("""
                 INSERT INTO usuarios (nombre, email, password, telefono, documento, num_documento, rol_id)
                 VALUES (%s, %s, %s, %s, %s, %s, %s)
@@ -180,7 +219,7 @@ def register():
             
         except Exception as e:
             flash('Error al registrar usuario', 'error')
-            print(f"Error en register: {e}")
+            print(f"❌ [DEBUG] Error en register: {e}")
     
     return render_template('auth/register.html')
 
@@ -194,6 +233,8 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
+    print(f"🏠 [DEBUG] Acceso a dashboard - Usuario: {current_user.nombre}")
+    
     # Redirigir según el rol
     if current_user.rol_id == 1:  # Admin
         return render_template('dashboard/admin_dashboard.html')
@@ -241,4 +282,5 @@ if __name__ == '__main__':
     print("🔐 http://localhost:5002/login")
     print("👤 http://localhost:5002/register")
     print("📊 http://localhost:5002/health")
+    print("=" * 50)
     app.run(debug=True, host='0.0.0.0', port=5002)
