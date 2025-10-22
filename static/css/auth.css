@@ -28,20 +28,21 @@
 .login-body {
     font-family: 'Inter', sans-serif;
     background: linear-gradient(135deg, var(--dark-bg) 0%, #2d2d2d 100%);
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
     color: var(--text-light);
+    overflow: hidden;
 }
 
 /* ===== CONTENEDOR PRINCIPAL ===== */
 .login-container {
     display: flex;
     width: 100%;
-    max-width: 1200px;
-    height: 700px;
+    max-width: 1000px;
+    height: 600px;
     background: var(--dark-card);
     border-radius: var(--border-radius);
     overflow: hidden;
@@ -51,12 +52,13 @@
 /* ===== COLUMNA FORMULARIO ===== */
 .form-column {
     flex: 1;
-    padding: 60px 50px;
+    padding: 40px 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--dark-card);
     position: relative;
+    overflow: hidden;
 }
 
 .form-wrapper {
@@ -66,28 +68,28 @@
 
 /* ===== MARCA Y LOGO ===== */
 .brand-section {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .logo {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1.5rem;
+    margin: 0 auto 1rem;
     box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
 }
 
 .logo i {
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: var(--text-light);
 }
 
 .brand-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     background: linear-gradient(135deg, var(--primary-color), var(--text-light));
     -webkit-background-clip: text;
@@ -98,16 +100,21 @@
 
 .brand-subtitle {
     color: var(--text-muted);
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 400;
 }
 
 /* ===== MENSAJES FLASH ===== */
+.flash-messages {
+    margin-bottom: 1.5rem;
+}
+
 .flash-messages .alert {
     border: none;
     border-radius: 8px;
-    padding: 12px 16px;
+    padding: 10px 14px;
     font-weight: 500;
+    margin-bottom: 0.5rem;
 }
 
 .alert-danger {
@@ -124,7 +131,7 @@
 
 /* ===== FORMULARIO ===== */
 .login-form {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .form-group {
@@ -137,11 +144,13 @@
     margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
+    font-size: 0.95rem;
 }
 
 .form-label i {
     color: var(--primary-color);
-    width: 20px;
+    width: 18px;
+    font-size: 0.9rem;
 }
 
 .form-control {
@@ -150,8 +159,9 @@
     border-radius: 8px;
     color: var(--text-light);
     padding: 12px 16px;
-    font-size: 1rem;
+    font-size: 0.95rem;
     transition: var(--transition);
+    height: 48px;
 }
 
 .form-control:focus {
@@ -163,12 +173,7 @@
 
 .form-control::placeholder {
     color: var(--text-muted);
-}
-
-.form-text {
-    color: var(--text-muted);
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
+    font-size: 0.9rem;
 }
 
 /* ===== GRUPO CONTRASEÑA ===== */
@@ -178,15 +183,17 @@
 
 .password-toggle {
     position: absolute;
-    right: 10px;
+    right: 8px;
     top: 50%;
     transform: translateY(-50%);
     background: transparent;
     border: none;
     color: var(--text-muted);
-    padding: 8px;
+    padding: 6px;
     border-radius: 6px;
     transition: var(--transition);
+    width: 36px;
+    height: 36px;
 }
 
 .password-toggle:hover {
@@ -194,11 +201,15 @@
     color: var(--text-light);
 }
 
-/* ===== CHECKBOX RECORDARME ===== */
+/* ===== FILA RECORDARME Y OLVIDÉ CONTRASEÑA ===== */
+.d-flex.justify-content-between {
+    margin-bottom: 1.5rem;
+}
+
 .form-check-input {
     background: var(--darker-card);
     border: 2px solid var(--border-color);
-    margin-right: 10px;
+    margin-right: 8px;
 }
 
 .form-check-input:checked {
@@ -209,6 +220,20 @@
 .form-check-label {
     color: var(--text-muted);
     font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.forgot-password {
+    color: var(--primary-color) !important;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.forgot-password:hover {
+    color: var(--primary-light) !important;
+    text-decoration: underline;
 }
 
 /* ===== BOTÓN LOGIN ===== */
@@ -216,12 +241,13 @@
     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     border: none;
     border-radius: 8px;
-    padding: 14px 20px;
+    padding: 12px 20px;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1rem;
     transition: var(--transition);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    height: 50px;
 }
 
 .login-btn:hover {
@@ -232,7 +258,7 @@
 
 /* ===== ENLACES AUTH ===== */
 .auth-links {
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .auth-link {
@@ -240,6 +266,7 @@
     text-decoration: none;
     font-weight: 500;
     transition: var(--transition);
+    font-size: 0.9rem;
 }
 
 .auth-link:hover {
@@ -247,20 +274,8 @@
     text-decoration: underline;
 }
 
-/* ===== INFO DEMO ===== */
-.demo-info {
-    background: rgba(212, 175, 55, 0.1);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 8px;
-}
-
-.demo-info h6 {
-    color: var(--primary-color);
+.register-link {
     font-weight: 600;
-}
-
-.demo-credentials {
-    font-size: 0.9rem;
 }
 
 /* ===== COLUMNA IMAGEN ===== */
@@ -286,7 +301,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 60px;
+    padding: 40px;
 }
 
 .overlay-content {
@@ -295,111 +310,206 @@
 }
 
 .overlay-content h2 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .overlay-content p {
-    font-size: 1.2rem;
-    margin-bottom: 3rem;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
     opacity: 0.9;
 }
 
 /* ===== LISTA DE CARACTERÍSTICAS ===== */
 .features-list {
     text-align: left;
-    max-width: 300px;
+    max-width: 280px;
     margin: 0 auto;
 }
 
 .feature-item {
     display: flex;
     align-items: center;
-    margin-bottom: 1.5rem;
-    padding: 12px;
+    margin-bottom: 1rem;
+    padding: 10px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     backdrop-filter: blur(10px);
 }
 
 .feature-item i {
-    font-size: 1.5rem;
-    margin-right: 15px;
+    font-size: 1.25rem;
+    margin-right: 12px;
     color: var(--text-light);
-    width: 30px;
+    width: 24px;
     text-align: center;
 }
 
 .feature-item span {
     font-weight: 500;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
+/* ===== DISEÑO RESPONSIVE CON EFECTO PARALLAX ===== */
 @media (max-width: 992px) {
+    .login-body {
+        height: 100vh;
+        overflow: auto;
+        padding: 0;
+        display: block;
+    }
+    
     .login-container {
         flex-direction: column;
         height: auto;
-        max-width: 500px;
+        max-width: none;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        min-height: 100vh;
     }
     
-    .form-column {
-        padding: 40px 30px;
-        order: 2;
-    }
-    
+    /* SECCIÓN DE BIENVENIDA (PRIMERA VISTA) */
     .image-column {
-        min-height: 300px;
+        min-height: 100vh;
         order: 1;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .image-overlay {
+        position: relative;
+        height: 100vh;
+        padding: 40px 30px;
     }
     
     .overlay-content {
-        padding: 30px;
+        animation: fadeInUp 0.8s ease-out;
     }
     
     .overlay-content h2 {
-        font-size: 2rem;
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .overlay-content p {
+        font-size: 1.2rem;
+        margin-bottom: 3rem;
+    }
+    
+    .features-list {
+        max-width: 350px;
+    }
+    
+    .feature-item {
+        margin-bottom: 1.5rem;
+        padding: 15px;
+    }
+    
+    .feature-item i {
+        font-size: 1.5rem;
+    }
+    
+    .feature-item span {
+        font-size: 1.1rem;
+    }
+    
+    /* SECCIÓN DE LOGIN (SEGUNDA VISTA - AL SCROLL) */
+    .form-column {
+        order: 2;
+        min-height: 100vh;
+        padding: 60px 30px;
+        background: var(--dark-bg);
+        position: relative;
+    }
+    
+    .form-wrapper {
+        max-width: 400px;
+        margin: 0 auto;
+        animation: slideInUp 0.8s ease-out;
+    }
+    
+    .brand-section {
+        margin-bottom: 3rem;
     }
     
     .brand-title {
-        font-size: 2rem;
+        font-size: 2.2rem;
+    }
+    
+    .brand-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    /* Indicador de scroll */
+    .scroll-indicator {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        color: var(--text-light);
+        opacity: 0.8;
+        animation: bounce 2s infinite;
+    }
+    
+    .scroll-indicator i {
+        font-size: 1.5rem;
+        display: block;
+        margin-bottom: 5px;
+    }
+    
+    .scroll-indicator span {
+        font-size: 0.9rem;
     }
 }
 
 @media (max-width: 576px) {
-    .login-body {
-        padding: 10px;
+    .image-overlay {
+        padding: 30px 20px;
+    }
+    
+    .overlay-content h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .overlay-content p {
+        font-size: 1.1rem;
+        margin-bottom: 2.5rem;
+    }
+    
+    .features-list {
+        max-width: 300px;
+    }
+    
+    .feature-item {
+        margin-bottom: 1.25rem;
+        padding: 12px;
+    }
+    
+    .feature-item i {
+        font-size: 1.3rem;
+    }
+    
+    .feature-item span {
+        font-size: 1rem;
     }
     
     .form-column {
-        padding: 30px 20px;
+        padding: 50px 25px;
     }
     
     .brand-title {
         font-size: 1.8rem;
     }
     
-    .logo {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .logo i {
-        font-size: 2rem;
-    }
-    
-    .overlay-content {
-        padding: 20px;
-    }
-    
-    .overlay-content h2 {
-        font-size: 1.8rem;
-    }
-    
-    .features-list {
-        max-width: 100%;
+    .scroll-indicator {
+        bottom: 20px;
     }
 }
 
@@ -415,6 +525,29 @@
     }
 }
 
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
 .form-wrapper {
     animation: fadeInUp 0.6s ease-out;
 }
@@ -423,28 +556,22 @@
     animation: fadeInUp 0.6s ease-out 0.2s both;
 }
 
-/* ===== ESTADOS DE CARGA ===== */
-.btn-loading {
-    position: relative;
-    color: transparent !important;
-}
-
-.btn-loading::after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    top: 50%;
-    left: 50%;
-    margin-left: -10px;
-    margin-top: -10px;
-    border: 2px solid transparent;
-    border-top: 2px solid var(--text-light);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+/* ===== GARANTIZAR QUE NO HAY SCROLL EN DESKTOP ===== */
+@media (min-width: 993px) {
+    .login-body {
+        overflow: hidden !important;
+    }
+    
+    .form-column {
+        overflow: hidden !important;
+    }
+    
+    .login-container {
+        max-height: 600px;
+    }
+    
+    /* Ocultar indicador de scroll en desktop */
+    .scroll-indicator {
+        display: none;
+    }
 }

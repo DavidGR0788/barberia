@@ -16,116 +16,11 @@
 </head>
 <body class="login-body">
     <div class="login-container">
-        <!-- Columna Izquierda - Formulario -->
-        <div class="form-column">
-            <div class="form-wrapper">
-                <!-- Logo y Título -->
-                <div class="brand-section text-center mb-5">
-                    <div class="logo mb-3">
-                        <i class="fas fa-cut"></i>
-                    </div>
-                    <h1 class="brand-title">Barbería Elite</h1>
-                    <p class="brand-subtitle">Inicia sesión en tu cuenta</p>
-                </div>
-
-                <!-- Mensajes Flash -->
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        <div class="flash-messages mb-4">
-                            {% for category, message in messages %}
-                                <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show">
-                                    <i class="fas fa-{{ 'exclamation-triangle' if category == 'error' else 'check-circle' }} me-2"></i>
-                                    {{ message }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                {% endwith %}
-
-                <!-- Formulario de Login -->
-                <form method="POST" action="{{ url_for('login') }}" class="login-form">
-                    <!-- Campo Documento -->
-                    <div class="form-group mb-4">
-                        <label for="num_documento" class="form-label">
-                            <i class="fas fa-id-card me-2"></i>Número de Documento
-                        </label>
-                        <input type="text" 
-                               class="form-control form-control-lg" 
-                               id="num_documento" 
-                               name="num_documento" 
-                               placeholder="Ej: 1007230985" 
-                               required
-                               value="{{ request.form.num_documento if request.form.num_documento }}">
-                        <div class="form-text">Ingresa tu número de documento</div>
-                    </div>
-
-                    <!-- Campo Contraseña -->
-                    <div class="form-group mb-4">
-                        <label for="password" class="form-label">
-                            <i class="fas fa-lock me-2"></i>Contraseña
-                        </label>
-                        <div class="password-input-group">
-                            <input type="password" 
-                                   class="form-control form-control-lg" 
-                                   id="password" 
-                                   name="password" 
-                                   placeholder="Tu contraseña" 
-                                   required>
-                            <button type="button" class="btn btn-outline-secondary password-toggle" id="togglePassword">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Recordarme -->
-                    <div class="form-check mb-4">
-                        <input class="form-check-input" type="checkbox" id="remember" name="remember">
-                        <label class="form-check-label" for="remember">
-                            Recordar mi sesión
-                        </label>
-                    </div>
-
-                    <!-- Botón de Login -->
-                    <button type="submit" class="btn btn-primary btn-lg w-100 login-btn">
-                        <i class="fas fa-sign-in-alt me-2"></i>
-                        Iniciar Sesión
-                    </button>
-                </form>
-
-                <!-- Enlaces adicionales -->
-                <div class="auth-links text-center mt-4">
-                    <p class="mb-3">
-                        ¿No tienes una cuenta? 
-                        <a href="{{ url_for('register') }}" class="auth-link">Regístrate aquí</a>
-                    </p>
-                    <p class="mb-0">
-                        <a href="#" class="auth-link text-muted">
-                            <i class="fas fa-question-circle me-1"></i>¿Olvidaste tu contraseña?
-                        </a>
-                    </p>
-                </div>
-
-                <!-- Información de prueba -->
-                <div class="demo-info mt-5 p-3 rounded">
-                    <h6 class="text-center mb-2">
-                        <i class="fas fa-user-shield me-2"></i>Usuario Admin de Prueba
-                    </h6>
-                    <div class="demo-credentials text-center">
-                        <small class="text-muted">
-                            <strong>Documento:</strong> 1007230985 • 
-                            <strong>Contraseña:</strong> 1234567890
-                        </small>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Columna Derecha - Imagen -->
+        <!-- Columna Derecha - Imagen (PRIMERA VISTA EN MÓVIL) -->
         <div class="image-column">
             <div class="image-overlay">
                 <div class="overlay-content">
-                    <h2>Bienvenido a Barbería Elite</h2>
+                    <h2>Bienvenido a Tu Barbería</h2>
                     <p>Estilo, precisión y tradición en cada corte</p>
                     <div class="features-list">
                         <div class="feature-item">
@@ -143,13 +38,108 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Indicador de Scroll para Móvil -->
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i>
+                <span>Desliza para iniciar sesión</span>
+            </div>
+        </div>
+
+        <!-- Columna Izquierda - Formulario (SEGUNDA VISTA EN MÓVIL) -->
+        <div class="form-column">
+            <div class="form-wrapper">
+                <!-- Logo y Título -->
+                <div class="brand-section text-center mb-4">
+                    <div class="logo mb-3">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h1 class="brand-title">Barberías De Elite</h1>
+                    <p class="brand-subtitle">Inicia sesión en tu cuenta</p>
+                </div>
+
+                <!-- Mensajes Flash -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="flash-messages mb-3">
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show">
+                                    <i class="fas fa-{{ 'exclamation-triangle' if category == 'error' else 'check-circle' }} me-2"></i>
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <!-- Formulario de Login -->
+                <form method="POST" action="{{ url_for('login') }}" class="login-form">
+                    <!-- Campo Documento -->
+                    <div class="form-group mb-3">
+                        <label for="num_documento" class="form-label">
+                            <i class="fas fa-id-card me-2"></i>Número de Documento
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               id="num_documento" 
+                               name="num_documento" 
+                               placeholder="Ej: 1007230985" 
+                               required
+                               value="{{ request.form.num_documento if request.form.num_documento }}">
+                    </div>
+
+                    <!-- Campo Contraseña -->
+                    <div class="form-group mb-3">
+                        <label for="password" class="form-label">
+                            <i class="fas fa-lock me-2"></i>Contraseña
+                        </label>
+                        <div class="password-input-group">
+                            <input type="password" 
+                                   class="form-control" 
+                                   id="password" 
+                                   name="password" 
+                                   placeholder="Tu contraseña" 
+                                   required>
+                            <button type="button" class="btn btn-outline-secondary password-toggle" id="togglePassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Recordarme y Olvidé contraseña en misma línea -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                            <label class="form-check-label" for="remember">
+                                Recordar sesión
+                            </label>
+                        </div>
+                        <a href="#" class="auth-link forgot-password">
+                            ¿Olvidaste tu contraseña?
+                        </a>
+                    </div>
+
+                    <!-- Botón de Login -->
+                    <button type="submit" class="btn btn-primary btn-lg w-100 login-btn mb-3">
+                        <i class="fas fa-sign-in-alt me-2"></i>
+                        Iniciar Sesión
+                    </button>
+                </form>
+
+                <!-- Enlace de registro -->
+                <div class="auth-links text-center">
+                    <p class="mb-0">
+                        ¿No tienes una cuenta? 
+                        <a href="{{ url_for('register') }}" class="auth-link register-link">Regístrate aquí</a>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Nuestro JS personalizado -->
-    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
     
     <script>
         // Toggle para mostrar/ocultar contraseña
@@ -164,6 +154,13 @@
                 passwordInput.type = 'password';
                 icon.classList.replace('fa-eye-slash', 'fa-eye');
             }
+        });
+
+        // Smooth scroll para el indicador en móvil
+        document.querySelector('.scroll-indicator')?.addEventListener('click', function() {
+            document.querySelector('.form-column').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
         });
     </script>
 </body>
